@@ -1,21 +1,27 @@
-<!doctype html>
-<html lang="en">
+﻿<!doctype html>
+<html lang="en" ng-app="kcApp" ng-controller="indexController">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 		
 		<!-- include more keywords -->
-		<meta name="keywords" content="">
-		<meta name="description" content="">
-		<meta name="robots" content="">
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="robots" content="" />
+
+        <title>{{ seo.pageTitle }} | Kingdom City</title>
+        <meta name="description" content="{{ seo.metaDescription }}">
 		
 		<link rel="shortcut icon" href="img/mc-icon.ico" type="image/x-icon">
-		<title>Kingdom City</title>
 		
-		<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/sticky-footer-navbar.css">
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/sticky-footer-navbar.css" />
+
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-route.js"></script>
+        <script src="js/routes.js"></script>
 		
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,153 +31,204 @@
 		<![endif]-->
 		
 		<style>
-.containter-img {
-  position: relative;
-  width: 50%;
-}
+            .containter-img {
+              position: relative;
+              width: 50%;
+            }
 
-.overlay-image {
-  display: block;
-  width: 100%;
-  height: auto;
-}  
+            .overlay-image {
+              display: block;
+              width: 100%;
+              height: auto;
+            }  
 
-.overlay-image-ovr {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: .5s ease;
-  background-color: #008CBA;
-}
+            .overlay-image-ovr {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              height: 100%;
+              width: 100%;
+              opacity: 0;
+              transition: .5s ease;
+              background-color: #008CBA;
+            }
 
-.container-img:hover .overlay-image-ovr {
-  opacity: 1;
-}
+            .container-img:hover .overlay-image-ovr {
+              opacity: 1;
+            }
 
-.rent {
-  color: white;
-  font-size: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
-</style>
+            .rent {
+              color: white;
+              font-size: 20px;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              -ms-transform: translate(-50%, -50%);
+              text-align: center;
+            }
+
+            .triangle-down {
+	            width: 0;
+	            height: 0;
+	            border-left: 50px solid transparent;
+	            border-right: 50px solid transparent;
+	            border-top: 100px solid red;
+            }
+
+            .bg-black {
+                background-color: #000 !important;
+            }
+
+            @media (min-width: 992px) {
+                .navbar {
+                    height:50px;
+                }
+
+            .card-overlay-bottom-text {
+                color: #fff !important;
+                position: absolute;
+                bottom: 0;
+                padding: 1.25rem;
+                background: rgba(128,128,128, 0.7);
+            }
+
+            header ul a {
+                color: #fff !important;
+            }
+
+            .footer {
+              position: absolute;
+              bottom: 0;
+              width: 100%;
+              height: 60px; /* Set the fixed height of the footer here */
+              line-height: 60px; /* Vertically center the text there */
+            }
+
+            footer ul a {
+                color: #fff !important;
+            }
+
+            html {
+              position: relative;
+              min-height: 100%;
+            }
+
+            .info-select {
+                font-size: 22px;
+                font-weight: 100;
+                color: #008CBA;
+                cursor: pointer;
+            }
+            
+            .info-active {
+                font-size: 22px;
+                font-weight: 600;
+                color: #000;
+                cursor: pointer;
+            }
+        </style>
     </head>
 
     <body>
         <header>
-            <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+
+            <!-- Desktop View -->
+           <!-- <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
                 
-                <!-- Desktop View -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/the-city">The City</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/villas">Villas</a>
+                        </li>
+                    </ul>
+                </div>
+
+
                 <div class="d-sm-none d-md-block">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <img src="img/logo.png" alt="kingdom city" />
                     </a>
                 </div>
 
-                <!-- Mobile View -->
-                <div class="d-none d-sm-block d-md-none">
-                    <a class="navbar-brand" href="#">Kingdom City</a>
-                </div>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Home</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/book">Book</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="thecity.html">The City</a>
+                            <a class="nav-link" href="/services">Services</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>-->
+
+            <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+                <div class="navbar-collapse collapse w-100 dual-collapse2 order-1 order-md-0">
+                    <ul class="navbar-nav ml-auto text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/the-city">The City</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="villas.html">Villas</a>
+                            <a class="nav-link" href="/villas">Villas</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mx-auto my-2 order-0 order-md-1 position-relative" style="padding-top: 55px; z-index: 1;">
+                    <a class="mx-auto" href="/">
+                        <img src="img/kingdom-city.png" alt="kingdom city" class="rounded-circle" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <div class="navbar-collapse collapse w-100 dual-collapse2 order-2 order-md-2">
+                    <ul class="navbar-nav mr-auto text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/rent">Rent</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Accommodation</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">Services</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown03">
-                                <a class="dropdown-item" href="#">Restaurants</a>
-                                <a class="dropdown-item" href="#">Shopping</a>
-                                <a class="dropdown-item" href="#">Entertainment</a>
-                                <a class="dropdown-item" href="#">Health</a>
-                                <a class="dropdown-item" href="#">Sports</a>
-                                <a class="dropdown-item" href="#">Services</a>
-                                <a class="dropdown-item" href="#">The Clinic</a>
-                            </div>
+                            <a class="nav-link" href="/services">Services</a>
                         </li>
                     </ul>
                 </div>
             </nav>
+
+            <!-- End : Desktop View -->
+
+            <!-- Mobile View -->
+            <div class="d-block d-md-none">
+                <a href="/">Kingdom City</a>
+            </div>
+            <!-- End : Mobile View -->
+
         </header>
 
         <!-- Main Content -->
-        <main>
-            <div id="myCarousel" style="padding-top: 84px;" class="carousel slide" data-ride="carousel" data-interval="10000">
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                    </ol>
-                    <div class="carousel-inner">                        
-                        <div class="carousel-item active">
-                            <img class="d-block w-100" src="img/carousel-2.png" alt="Second slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="img/carousel-1.png" alt="First slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="img/carousel-3.png" alt="Third slide">
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                    </a>
-                </div>
-                
-                <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6 container-img">
-                        <img src="img/aerial-view.jpg" class="img-fluid" alt="" />
-						
-                    </div>
-                    <div class="col-md-6" style="padding-left:0px; padding-right:0px;">
-                        <img src="img/pool-1.jpg" class="img-fluid" alt="" />
-                    </div>
-                </div>
-            </div>
-        </main>
+        <div ng-view></div>
 
         <!-- Footer -->
         <footer class="footer">
-            <ul class="nav nav-light bg-light justify-content-center">
+            <ul class="nav nav-dark bg-black justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">The City</a>
+                    <a class="nav-link active" href="/contact-us">Contact Us</a>
                     </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Contact Us</a>
-                    </li>
-                <li class="nav-item">
-                        <a class="nav-link" href="#">Location</a>
+                        <a class="nav-link" href="/location">Location</a>
                         </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Site Map</a>
+                    <a class="nav-link" href="/sitemap">Site Map</a>
                     </li>
             </ul>
 
@@ -183,6 +240,8 @@
         <script src="js/jquery-1.11.3.min.js"></script>
         <script src="js/popper.min.js"></script>	
 		<script src="js/bootstrap.js"></script>	
+        <script src="js/bootstrap-tab.js"></script>	
+        <script src="js/common.js"></script>
         
     </body>
 </html>
