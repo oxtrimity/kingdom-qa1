@@ -1,213 +1,458 @@
-﻿
-        
-        <style>
-            .background-opacity {
-                height: 100%;
-                width: 100%;
-                position: absolute;
-                right: 0;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                z-index: -1;
-                opacity: .5;                    
+﻿<!doctype html>
+<html lang="en" ng-app="kcApp" ng-controller="indexController">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <!-- include more keywords -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="robots" content="" />
+
+    <title>{{ seo.pageTitle }} | Kingdom City</title>
+    <meta name="description" content="{{ seo.metaDescription }}">
+
+    <link rel="shortcut icon" href="img/mc-icon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/sticky-footer-navbar.css" />
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .containter-img {
+            position: relative;
+            width: 50%;
+        }
+
+        .overlay-image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .overlay-image-ovr {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+            background-color: #008CBA;
+        }
+
+        .container-img:hover .overlay-image-ovr {
+            opacity: 1;
+        }
+
+        .rent {
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .triangle-down {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 100px solid red;
+        }
+
+        .bg-black {
+            background-color: #000 !important;
+        }
+
+        @media (min-width: 992px) {
+            .navbar {
+                height: 50px;
             }
-        </style>
 
-        <main class="container" style="padding-top: 60px !important; padding-bottom: 50px !important;">
-            <div class="row">
-                <h1>Residences</h1> 
+            .card-overlay-bottom-text {
+                color: #fff !important;
+                position: absolute;
+                bottom: 0;
+                padding: 1.25rem;
+                background: rgba(128,128,128, 0.7);
+            }
+
+            header ul a {
+                color: #fff !important;
+            }
+
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 60px; /* Set the fixed height of the footer here */
+                line-height: 60px; /* Vertically center the text there */
+            }
+
+            footer ul a {
+                color: #fff !important;
+            }
+
+            html {
+                position: relative;
+                min-height: 100%;
+            }
+
+            .info-select {
+                font-size: 22px;
+                font-weight: 100;
+                color: #008CBA;
+                cursor: pointer;
+            }
+
+            .info-active {
+                font-size: 22px;
+                font-weight: 600;
+                color: #000;
+                cursor: pointer;
+            }
+    </style>
+</head>
+
+<body>
+    <header>
+
+        <!-- Desktop View -->
+        <!-- <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
+
+             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+             </button>
+
+             <div class="collapse navbar-collapse" id="navbarCollapse">
+                 <ul class="navbar-nav mr-auto">
+                     <li class="nav-item">
+                         <a class="nav-link" href="/the-city">The City</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="/villas">Villas</a>
+                     </li>
+                 </ul>
+             </div>
+
+
+             <div class="d-sm-none d-md-block">
+                 <a class="navbar-brand" href="/">
+                     <img src="img/logo.png" alt="kingdom city" />
+                 </a>
+             </div>
+
+             <div class="collapse navbar-collapse" id="navbarCollapse">
+                 <ul class="navbar-nav mr-auto">
+                     <li class="nav-item">
+                         <a class="nav-link" href="/book">Book</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="/services">Services</a>
+                     </li>
+                 </ul>
+             </div>
+         </nav>-->
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+            <div class="navbar-collapse collapse w-100 dual-collapse2 order-1 order-md-0">
+                <ul class="navbar-nav ml-auto text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/thecity.html">The City</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/villas.html">Villas</a>
+                    </li>
+                </ul>
             </div>
 
-            <div class="row" style="margin-top: 20px;">
-                <div class="col-md-12">
-                    Kingdom City offers you a world of fine and quality housing. The beauty of Najdi architecture combined with all the comforts of a western lifestyle provides an amiable environment for a perfect stay. Consisting of 333 living accommodations with full support facilities, the City offers a range of housing facilities that present and are tailored to meet your needs.
-                    All villas feature centrally air-conditioned (roof mounted systems), American/European standards furniture, soft packs, PBX (direct telephone lines are available on demand), front gardens, private rear gardens, shaded individual car parking beside daily entrance of each villa, in addition to many other facilities
+            <div class="mx-auto my-2 order-0 order-md-1 position-relative" style="padding-top: 55px; z-index: 1;">
+                <a class="mx-auto" href="/index.html">
+                    <img src="img/kingdom-city.png" alt="kingdom city" class="rounded-circle" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="navbar-collapse collapse w-100 dual-collapse2 order-2 order-md-2">
+                <ul class="navbar-nav mr-auto text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rent.html">Rent</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services.html">Services</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- End : Desktop View -->
+        <!-- Mobile View -->
+        <div class="d-block d-md-none">
+            <a href="/index.html">Kingdom City</a>
+        </div>
+        <!-- End : Mobile View -->
+
+    </header>
+
+    <!-- Main Content -->
+
+
+    <style>
+        .background-opacity {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            right: 0;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            opacity: .5;
+        }
+    </style>
+
+    <main class="container" style="padding-top: 60px !important; padding-bottom: 50px !important;">
+        <div class="row">
+            <h1>Residences</h1>
+        </div>
+
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-12">
+                Kingdom City offers you a world of fine and quality housing. The beauty of Najdi architecture combined with all the comforts of a western lifestyle provides an amiable environment for a perfect stay. Consisting of 333 living accommodations with full support facilities, the City offers a range of housing facilities that present and are tailored to meet your needs.
+                All villas feature centrally air-conditioned (roof mounted systems), American/European standards furniture, soft packs, PBX (direct telephone lines are available on demand), front gardens, private rear gardens, shaded individual car parking beside daily entrance of each villa, in addition to many other facilities
+            </div>
+        </div>
+
+        <!-- Executive VIP -->
+        <div class="row border-top border-left" style="margin-top: 30px;">
+            <div class="col-md-6 text-center">
+                <div class="background-opacity" style="background-image: url(img/executive-1.jpg);"></div>
+                <div style="padding:150px;">
+                    <h3>EXECUTIVE VIP</h3>
+                    <small class="text-dark">4 Bedroom</small>
                 </div>
             </div>
 
-            <!-- Executive VIP -->
-            <div class="row border-top border-left" style="margin-top: 30px;">
-                <div class="col-md-6 text-center" >
-                    <div class="background-opacity" style="background-image: url(img/executive-1.jpg);"></div>
-                    <div style="padding:150px;">
-                        <h3>EXECUTIVE VIP</h3>
-                        <small class="text-dark">4 Bedroom</small>
-                    </div>
+            <div class="col-md-6 text-center" style="padding-top: 50px;">
+                <h5>Surface Area</h5>
+                <div class="text-muted">425&#13217;</div>
+
+                <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
+                    This villa is a luxury four-bedroom.
+                    That offers all the amenities for a
+                    luxurious comfortable life.
                 </div>
 
-                <div class="col-md-6 text-center" style="padding-top: 50px;">
-                    <h5>Surface Area</h5>
-                    <div class="text-muted">425&#13217;</div>
+                <div style="margin-top: 50px;">
+                    <button type="button" class="btn btn-outline-secondary">View More</button>
+                </div>
+            </div>
+        </div>
 
-                    <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
-                        This villa is a luxury four-bedroom. 
-                        That offers all the amenities for a 
-                        luxurious comfortable life.
-                    </div>
-
-                    <div style="margin-top: 50px;">
-                        <button type="button" class="btn btn-outline-secondary">View More</button>
-                    </div>
+        <!-- Executive Villa 4 bd-->
+        <div class="row border-top border-left" style="margin-top: 30px;">
+            <div class="col-md-6 text-center">
+                <div class="background-opacity" style="background-image: url(img/executive-2.jpg);"></div>
+                <div style="padding:150px;">
+                    <h3>EXECUTIVE VILLA</h3>
+                    <small class="text-dark">4 Bedroom</small>
                 </div>
             </div>
 
-            <!-- Executive Villa 4 bd-->
-            <div class="row border-top border-left" style="margin-top: 30px;">
-                <div class="col-md-6 text-center" >
-                    <div class="background-opacity" style="background-image: url(img/executive-2.jpg);"></div>
-                    <div style="padding:150px;">
-                        <h3>EXECUTIVE VILLA</h3>
-                        <small class="text-dark">4 Bedroom</small>
-                    </div>
+            <div class="col-md-6 text-center" style="padding-top: 50px;">
+                <h5>Surface Area</h5>
+                <div class="text-muted">359&#13217;</div>
+
+                <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
+                    An executive four-bedroom villa perfect for a family
+                    with special needs for privacy and convenience. This
+                    villa is furnished with fitted wardrobes, carpeted
+                    bedroom floors and marble floors.
                 </div>
 
-                <div class="col-md-6 text-center" style="padding-top: 50px;">
-                    <h5>Surface Area</h5>
-                    <div class="text-muted">359&#13217;</div>
+                <div style="margin-top: 50px;">
+                    <button type="button" class="btn btn-outline-secondary">View More</button>
+                </div>
+            </div>
+        </div>
 
-                    <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
-                            An executive four-bedroom villa perfect for a family 
-                            with special needs for privacy and convenience. This 
-                            villa is furnished with fitted wardrobes, carpeted 
-                            bedroom floors and marble floors.
-                    </div>
-
-                    <div style="margin-top: 50px;">
-                        <button type="button" class="btn btn-outline-secondary">View More</button>
-                    </div>
+        <!-- Executive Villa 3 bd -->
+        <div class="row border-top border-left" style="margin-top: 30px;">
+            <div class="col-md-6 text-center">
+                <div class="background-opacity" style="background-image: url(img/villa-2.jpg);"></div>
+                <div style="padding:150px;">
+                    <h3>EXECUTIVE VILLA</h3>
+                    <small class="text-dark">3 Bedroom</small>
                 </div>
             </div>
 
-            <!-- Executive Villa 3 bd -->
-            <div class="row border-top border-left" style="margin-top: 30px;">
-                <div class="col-md-6 text-center" >
-                    <div class="background-opacity" style="background-image: url(img/villa-2.jpg);"></div>
-                    <div style="padding:150px;">
-                        <h3>EXECUTIVE VILLA</h3>
-                        <small class="text-dark">3 Bedroom</small>
-                    </div>
+            <div class="col-md-6 text-center" style="padding-top: 50px;">
+                <h5>Surface Area</h5>
+                <div class="text-muted">305&#13217;</div>
+
+                <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
+                    An Executive three-bedroom villa, furnished with fitted
+                    wardrobes, carpeted bedroom and family room floors, and
+                    marble floors.
                 </div>
 
-                <div class="col-md-6 text-center" style="padding-top: 50px;">
-                    <h5>Surface Area</h5>
-                    <div class="text-muted">305&#13217;</div>
+                <div style="margin-top: 50px;">
+                    <button type="button" class="btn btn-outline-secondary">View More</button>
+                </div>
+            </div>
+        </div>
 
-                    <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
-                        An Executive three-bedroom villa, furnished with fitted 
-                        wardrobes, carpeted bedroom and family room floors, and 
-                        marble floors.
-                    </div>
-
-                    <div style="margin-top: 50px;">
-                        <button type="button" class="btn btn-outline-secondary">View More</button>
-                    </div>
+        <!-- Duplex -->
+        <div class="row border-top border-left" style="margin-top: 30px;">
+            <div class="col-md-6 text-center">
+                <div class="background-opacity" style="background-image: url(img/villa-3.jpg);"></div>
+                <div style="padding:150px;">
+                    <h3>STANDARD VILLA</h3>
+                    <small class="text-dark">3 Bedroom</small>
                 </div>
             </div>
 
-            <!-- Duplex -->
-            <div class="row border-top border-left" style="margin-top: 30px;">
-                <div class="col-md-6 text-center" >
-                    <div class="background-opacity" style="background-image: url(img/villa-3.jpg);"></div>
-                    <div style="padding:150px;">
-                        <h3>STANDARD VILLA</h3>
-                        <small class="text-dark">3 Bedroom</small>
-                    </div>
+            <div class="col-md-6 text-center" style="padding-top: 50px;">
+                <h5>Surface Area</h5>
+                <div class="text-muted">201&#13217;</div>
+
+                <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
+                    A standard three-bedroom villa, furnished with fitted
+                    wardrobes, carpeted bedroom and family room floors, and
+                    marble floors.
                 </div>
 
-                <div class="col-md-6 text-center" style="padding-top: 50px;">
-                    <h5>Surface Area</h5>
-                    <div class="text-muted">201&#13217;</div>
-
-                    <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
-                        A standard three-bedroom villa, furnished with fitted 
-                        wardrobes, carpeted bedroom and family room floors, and 
-                        marble floors.
-                    </div>
-
-                    <div style="margin-top: 50px;">
-                        <button type="button" class="btn btn-outline-secondary">View More</button>
-                    </div>
+                <div style="margin-top: 50px;">
+                    <button type="button" class="btn btn-outline-secondary">View More</button>
                 </div>
             </div>
-               
-            <!-- Standard -->
-            <div class="row border-top border-left" style="margin-top: 30px;">
-                <div class="col-md-6 text-center" >
-                    <div class="background-opacity" style="background-image: url(img/villa-4.jpg);"></div>
-                    <div style="padding:150px;">
-                        <h3>DUPLEX VILLA</h3>
-                        <small class="text-dark">2 Bedroom</small>
-                    </div>
-                </div>
+        </div>
 
-                <div class="col-md-6 text-center" style="padding-top: 50px;">
-                    <h5>Surface Area</h5>
-                    <div class="text-muted">120&#13217;</div>
-
-                    <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
-                        This villa is a standard two-bedroom duplex perfect for a 
-                        family with precise needs for space and privacy. 
-                    </div>
-
-                    <div style="margin-top: 50px;">
-                        <button type="button" class="btn btn-outline-secondary">View More</button>
-                    </div>
+        <!-- Standard -->
+        <div class="row border-top border-left" style="margin-top: 30px;">
+            <div class="col-md-6 text-center">
+                <div class="background-opacity" style="background-image: url(img/villa-4.jpg);"></div>
+                <div style="padding:150px;">
+                    <h3>DUPLEX VILLA</h3>
+                    <small class="text-dark">2 Bedroom</small>
                 </div>
             </div>
-            
-            <!-- Studio -->
-            <div class="row border-top border-left" style="margin-top: 30px;">
-                <div class="col-md-6 text-center" >
-                    <div class="background-opacity" style="background-image: url(img/villa-5.jpg);"></div>
-                    <div style="padding:150px;">
-                        <h3>STUDIO</h3>
-                        <small class="text-dark">1 Bedroom</small>
-                    </div>
+
+            <div class="col-md-6 text-center" style="padding-top: 50px;">
+                <h5>Surface Area</h5>
+                <div class="text-muted">120&#13217;</div>
+
+                <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
+                    This villa is a standard two-bedroom duplex perfect for a
+                    family with precise needs for space and privacy.
                 </div>
 
-                <div class="col-md-6 text-center" style="padding-top: 50px;">
-                    <h5>Surface Area</h5>
-                    <div class="text-muted">97&#13217;</div>
-
-                    <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
-                        A standard one-bedroom studio with fitted wardrobes, 
-                        carpeted bedroom and family room floors a standard 
-                        kitchen with appliances and a shaded car parking space. 
-                    </div>
-
-                    <div style="margin-top: 50px;">
-                        <button type="button" class="btn btn-outline-secondary">View More</button>
-                    </div>
+                <div style="margin-top: 50px;">
+                    <button type="button" class="btn btn-outline-secondary">View More</button>
                 </div>
             </div>
-            
-            <!-- Guest House -->
-            <div class="row border-top border-left" style="margin-top: 30px;">
-                <div class="col-md-6 text-center" >
-                    <div class="background-opacity" style="background-image: url(img/villa-5.jpg);"></div>
-                    <div style="padding:150px;">
-                        <h3>GUEST HOUSE</h3>
-                        <small class="text-dark">1 Bedroom</small>
-                    </div>
-                </div>
+        </div>
 
-                <div class="col-md-6 text-center" style="padding-top: 50px;">
-                    <h5>Surface Area</h5>
-                    <div class="text-muted">55&#13217;</div>
-
-                    <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
-                        This living unit is a hotel style 1-bedroom suite with 
-                        conveniently fitted wardrobes, carpeted floors, a 
-                        kitchenette with appliances and a shaded car parking space. 
-                    </div>
-
-                    <div style="margin-top: 50px;">
-                        <button type="button" class="btn btn-outline-secondary">View More</button>
-                    </div>
+        <!-- Studio -->
+        <div class="row border-top border-left" style="margin-top: 30px;">
+            <div class="col-md-6 text-center">
+                <div class="background-opacity" style="background-image: url(img/villa-5.jpg);"></div>
+                <div style="padding:150px;">
+                    <h3>STUDIO</h3>
+                    <small class="text-dark">1 Bedroom</small>
                 </div>
             </div>
-        </main>
+
+            <div class="col-md-6 text-center" style="padding-top: 50px;">
+                <h5>Surface Area</h5>
+                <div class="text-muted">97&#13217;</div>
+
+                <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
+                    A standard one-bedroom studio with fitted wardrobes,
+                    carpeted bedroom and family room floors a standard
+                    kitchen with appliances and a shaded car parking space.
+                </div>
+
+                <div style="margin-top: 50px;">
+                    <button type="button" class="btn btn-outline-secondary">View More</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guest House -->
+        <div class="row border-top border-left" style="margin-top: 30px;">
+            <div class="col-md-6 text-center">
+                <div class="background-opacity" style="background-image: url(img/villa-5.jpg);"></div>
+                <div style="padding:150px;">
+                    <h3>GUEST HOUSE</h3>
+                    <small class="text-dark">1 Bedroom</small>
+                </div>
+            </div>
+
+            <div class="col-md-6 text-center" style="padding-top: 50px;">
+                <h5>Surface Area</h5>
+                <div class="text-muted">55&#13217;</div>
+
+                <div class="text-justify" style="width: 250px; margin: auto; padding-top: 30px;">
+                    This living unit is a hotel style 1-bedroom suite with
+                    conveniently fitted wardrobes, carpeted floors, a
+                    kitchenette with appliances and a shaded car parking space.
+                </div>
+
+                <div style="margin-top: 50px;">
+                    <button type="button" class="btn btn-outline-secondary">View More</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <ul class="nav nav-dark bg-black justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active" href="/contacts.html">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/location.html">Location</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/sitemap.html">Site Map</a>
+            </li>
+        </ul>
+
+        <!-- <div class="container">
+            <span class="text-muted">Copyright © <script>document.write(new Date().getFullYear())</script> Kingdom Compound. All rights reserved.</span>
+        </div> -->
+    </footer>
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/common.js"></script>
+
+</body>
+</html>
